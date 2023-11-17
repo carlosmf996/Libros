@@ -1,0 +1,20 @@
+<html>
+<head>
+    <title>Libros listados</title>    
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.classless.min.css">
+</head>
+<body>
+    <h1>Lista de Libros</h1>
+    <ul>
+        {% for libro in libro_list %}
+        <h2><a href="{% url 'libro_details' pk=libro.pk%}">{{ libro.titulo }}</a></h2>
+        {% empty %}
+        <li>No hay libros por mostrar.</li>
+        {% endfor %}
+        
+        <form action = "{% url 'new' %}">
+            <button type="submit">Añadir nuevo libro</button>
+        </form> 
+    </ul>
+</body>
+</html>
