@@ -7,14 +7,25 @@
     <h1>Lista de Libros</h1>
     <ul>
         {% for libro in libro_list %}
-        <h2><a href="{% url 'libro_details' pk=libro.pk%}">{{ libro.titulo }}</a></h2>
+            <li>
+                <h2><a href="{% url 'libro_details' pk=libro.pk%}">{{ libro.titulo }}</a></h2>
+                <form action="{% url 'libro_edit' pk=libro.pk%}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Editar este libro</button>
+                </form>
+            </li>
         {% empty %}
-        <li>No hay libros por mostrar.</li>
+            <li>No hay libros por mostrar.</li>
         {% endfor %}
         
-        <form action = "{% url 'new' %}">
-            <button type="submit">Añadir nuevo libro</button>
-        </form> 
+        <li>
+            <form action="{% url 'new' %}" method="POST" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Añadir nuevo libro</button>
+            </form>
+        </li>
     </ul>
 </body>
 </html>
+
+

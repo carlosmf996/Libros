@@ -48,3 +48,18 @@ class New(View):
             Libro.objects.create(titulo = titulo, autor = autor, rating = rating, sinopsis = sinopsis)
             return redirect('libro_list')
         return render(request, 'libros/new.html', {'form': form})
+    
+class Edit(View):
+
+    def get(self, request, pk):
+        libro = get_object_or_404(Libro, pk=pk)
+        form = LibroForm(instance=libro)
+        return render(request, 'libros/libro_edit.html', {'form': form, 'libro': libro})
+
+    def post(self, request, pk):
+        libro = get_object_or_404(Libro, pk=pk)
+        form = LibroForm(request.POST, instance=libro)
+        if form.is_valid():
+            form.save()
+            return redirect('libro_list')
+        return render(request, 'libros/libro_edit.html', {'form': form, 'libro': libro})
