@@ -12,11 +12,11 @@
         {% csrf_token%}
         {{ forms.management_form }}
 
-        {% for form in forms %}
+        {% for formset in forms %}
 
             {{ form }}
 
-        { %end for % }
+        { % endfor % }
         <button type="submit">Dale caña</button>
     </form>
 </body>
