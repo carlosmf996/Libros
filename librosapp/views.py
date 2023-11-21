@@ -1,4 +1,6 @@
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro
 from django.views import View
@@ -49,7 +51,7 @@ class New(View):
             return redirect('libro_list')
         return render(request, 'libros/new.html', {'form': form})
     
-class Edit(View):
+"""class Edit(View):
 
     def get(self, request, pk):
         libro = get_object_or_404(Libro, pk=pk)
@@ -63,3 +65,11 @@ class Edit(View):
             form.save()
             return redirect('libro_list')
         return render(request, 'libros/libro_edit.html', {'form': form, 'libro': libro})
+"""
+
+class Edit(UpdateView):
+
+    model = Libro
+    fields = ["titulo", "autor", "rating", "sinopsis" ]
+    template_name = 'libros/libro_edit.html'
+    success_url = reverse_lazy("libro_list")

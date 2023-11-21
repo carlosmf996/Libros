@@ -9,7 +9,7 @@
         {% for libro in libro_list %}
             <li>
                 <h2><a href="{% url 'libro_details' pk=libro.pk%}">{{ libro.titulo }}</a></h2>
-                <form action="{% url 'libro_edit' pk=libro.pk%}" method="POST" style="display: inline;">
+                <form action="{% url 'libro_edit' pk=libro.pk%}" method="POST">
                     {% csrf_token %}
                     <button type="submit">Editar este libro</button>
                 </form>
