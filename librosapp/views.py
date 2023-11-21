@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro
 from django.views import View
 from .forms import LibroForm
+from django.forms import formset_factory
 
 ##libroFormSet
 
@@ -37,21 +38,22 @@ class LibroDetalle(DetailView):
 class New(View):
           
     def get(self, request):
-        form=LibroForm()
-        return render(request, 'libros/new.html', {'form': form})
+        ##form=LibroForm()
+        return render(request, 'libros/new.html', context= {'form': formset_factory(LibroForm, extra=2)})
     
     def post(self, request):
-        form=LibroForm(request.POST)
-        if form.is_valid():
-            titulo = form.cleaned_data["titulo"]
-            autor = form.cleaned_data["autor"]
-            rating = form.cleaned_data["rating"]
-            sinopsis = form.cleaned_data["sinopsis"]
-
-            Libro.objects.create(titulo = titulo, autor = autor, rating = rating, sinopsis = sinopsis)
+        ##form=LibroForm(request.POST)
+        formset = formset_factory(LibroForm)
+        formset = formset(data=request.POST)
+        if formset.is_valid():
+            for form in formset:
+                if form.has_changed():
+                    form.save()
             return redirect('libro_list')
-        return render(request, 'libros/new.html', {'form': form})
     
+        else:
+            return render(request, 'libros/new.html', context={'form': formset})
+
 """class Edit(View):
 
     def get(self, request, pk):

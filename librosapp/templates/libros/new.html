@@ -10,7 +10,13 @@
     <h1>Completar formulario</h1>
     <form action="{% url 'new'%}" method="POST">
         {% csrf_token%}
-        {{ form.as_p }}
+        {{ forms.management_form }}
+
+        {% for form in forms %}
+
+            {{ form }}
+
+        { %end for % }
         <button type="submit">Dale caña</button>
     </form>
 </body>
