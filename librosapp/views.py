@@ -1,10 +1,11 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
-from django.views.generic.edit import UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Libro
 from django.views import View
 from .forms import LibroForm
+
+##libroFormSet
 
 # Create your views here.
 
@@ -72,4 +73,10 @@ class Edit(UpdateView):
     model = Libro
     fields = ["titulo", "autor", "rating", "sinopsis" ]
     template_name = 'libros/libro_edit.html'
+    success_url = reverse_lazy("libro_list")
+
+
+class Delete(DeleteView):
+    model = Libro
+    template_name = 'libros/libro_delete.html'
     success_url = reverse_lazy("libro_list")

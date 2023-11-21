@@ -6,4 +6,3 @@ class LibroForm(forms.ModelForm):
     class Meta:
         model = Libro
         fields =["titulo", "autor", "rating", "sinopsis"]
-    

@@ -13,6 +13,7 @@
                     {% csrf_token %}
                     <button type="submit">Editar este libro</button>
                 </form>
+                <a href="{% url 'libro_delete' pk=libro.pk%}" role="button">Borrar</a>
             </li>
         {% empty %}
             <li>No hay libros por mostrar.</li>
