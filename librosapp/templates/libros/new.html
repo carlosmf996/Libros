@@ -9,15 +9,13 @@
 <body>
     <h1>Completar formulario</h1>
     <form action="{% url 'new'%}" method="POST">
-        {% csrf_token%}
-        {{ forms.management_form }}
+        {% csrf_token %}
+        {{ formset.management_form }}
 
-        {% for formset in forms %}
-
-            {{ form }}
-
-        { % endfor % }
+        {% for form in formset %}
+            {{ form.as_p }}
+        {% endfor %}
         <button type="submit">Dale caña</button>
     </form>
-</body>
+</body> 
 </html>

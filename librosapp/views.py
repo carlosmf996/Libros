@@ -34,15 +34,14 @@ class LibroDetalle(DetailView):
     model = Libro
     template_name = 'libros/libro_details.html'
 
-    
+        
 class New(View):
           
     def get(self, request):
-        ##form=LibroForm()
-        return render(request, 'libros/new.html', context= {'form': formset_factory(LibroForm, extra=2)})
+        formset = formset_factory(LibroForm, extra=2)
+        return render(request, 'libros/new.html', context={'formset': formset})  # Instancia el formset y pásalo al contexto
     
     def post(self, request):
-        ##form=LibroForm(request.POST)
         formset = formset_factory(LibroForm)
         formset = formset(data=request.POST)
         if formset.is_valid():
@@ -52,8 +51,8 @@ class New(View):
             return redirect('libro_list')
     
         else:
-            return render(request, 'libros/new.html', context={'form': formset})
-
+            return render(request, 'libros/new.html', context={'formset': formset})
+        
 """class Edit(View):
 
     def get(self, request, pk):
